@@ -5,11 +5,7 @@ import (
 )
 
 func main() {
-	http.HandleFunc("/", handler)
+	fs := http.FileServer(http.Dir("static"))
+	http.Handle("/", fs)
 	http.ListenAndServe(":8080", nil)
-}
-
-func handler(w http.ResponseWriter, r *http.Request) {
-	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("pong"))
 }
